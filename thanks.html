@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — TEDxNewy Salon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --indigo: #363d95;
+            --indigo-deep: #2C2C78;
+            --coral: #E8475F;
+            --coral-glow: #FF5A72;
+            --white: #FFFFFF;
+            --white-muted: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--indigo);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 40%, rgba(232, 71, 95, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 80% at 70% 60%, rgba(59, 59, 180, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(44, 44, 120, 0.4) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 560px;
+            padding: 3rem 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .brand {
+            margin-bottom: 2.5rem;
+        }
+
+        .brand img {
+            height: clamp(40px, 7vw, 64px);
+            width: auto;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+        }
+
+        .message {
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
+            line-height: 1.7;
+            color: var(--white-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .message p + p {
+            margin-top: 1rem;
+        }
+
+        .divider {
+            width: 48px;
+            height: 2px;
+            background: var(--coral);
+            margin: 0 auto 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: var(--coral);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.9rem 2.2rem;
+            border: none;
+            transition: background 0.25s ease, transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: var(--coral-glow);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <img src="logo-white.png" alt="TEDxNewy Salon">
+        </div>
+
+        <h1>Thank you for subscribing.</h1>
+
+        <div class="message">
+            <p>We're looking forward to sharing the TEDxNewy journey with you.</p>
+            <p>Keep an eye on your inbox for event updates, ticket releases and stories from across our community.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <a href="https://tedxnewy.salon" class="back-link">Back to TEDxNewy Salon</a>
+    </div>
+</body>
+</html>
