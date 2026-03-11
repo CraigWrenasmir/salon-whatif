@@ -196,28 +196,46 @@
 
         .edm-form {
             display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .edm-name-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edm-name-row input {
+            flex: 1;
+        }
+
+        .edm-email-row {
+            display: flex;
             gap: 0;
         }
 
-        .edm-form input[type="email"] {
-            flex: 1;
+        .edm-form input {
             padding: 0.8rem 1rem;
             font-family: 'DM Sans', sans-serif;
             font-size: 0.95rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-right: none;
             color: var(--white);
             outline: none;
             transition: border-color 0.25s ease;
         }
 
-        .edm-form input[type="email"]::placeholder {
+        .edm-form input::placeholder {
             color: rgba(255, 255, 255, 0.4);
         }
 
-        .edm-form input[type="email"]:focus {
+        .edm-form input:focus {
             border-color: var(--coral);
+        }
+
+        .edm-email-row input {
+            flex: 1;
+            border-right: none;
         }
 
         .edm-form button {
@@ -265,12 +283,16 @@
                 text-align: center;
             }
 
-            .edm-form {
+            .edm-name-row {
+                flex-direction: column;
+            }
+
+            .edm-email-row {
                 flex-direction: column;
                 gap: 0.5rem;
             }
 
-            .edm-form input[type="email"] {
+            .edm-email-row input {
                 border-right: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
@@ -328,9 +350,15 @@
             <div class="edm-signup">
                 <h3>Join the TEDxNewy Community</h3>
                 <form class="edm-form" action="https://tedxcookshill.us17.list-manage.com/subscribe/post?u=a10d6888da44faff18e178ba6&amp;id=d1beff871c&amp;f_id=002f4be0f0" method="post" target="_blank">
-                    <input type="email" name="EMAIL" placeholder="your@email.com" required>
+                    <div class="edm-name-row">
+                        <input type="text" name="FNAME" placeholder="First name">
+                        <input type="text" name="LNAME" placeholder="Last name">
+                    </div>
+                    <div class="edm-email-row">
+                        <input type="email" name="EMAIL" placeholder="your@email.com" required>
+                        <button type="submit">Subscribe</button>
+                    </div>
                     <div aria-hidden="true" style="position:absolute;left:-5000px;"><input type="text" name="b_a10d6888da44faff18e178ba6_d1beff871c" tabindex="-1" value=""></div>
-                    <button type="submit">Subscribe</button>
                 </form>
             </div>
         </div>
