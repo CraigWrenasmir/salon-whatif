@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Team Guide · Newcastle 2050: What If?</title>
+<style>
+  :root {
+    --bg: #0e0e10;
+    --surface: #17171a;
+    --surface-2: #1f1f24;
+    --border: #2a2a31;
+    --text: #ececf0;
+    --muted: #9b9ba5;
+    --red: #e62b1e;
+    --transport: #38bdf8;
+    --health: #84cc16;
+    --night: #c084fc;
+    --accent: var(--red);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    padding-bottom: 4rem;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  a { color: inherit; }
+
+  header.hero {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(230,43,30,0.18), transparent);
+  }
+  .hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  .tedx-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .tedx-tag::before {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 5.5vw, 2.3rem);
+    line-height: 1.1;
+    margin: 0 0 0.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  h1 .what-if {
+    display: block;
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  nav.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(14,14,16,0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-scroll {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    max-width: 720px;
+    margin: 0 auto;
+    scrollbar-width: none;
+  }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+
+  .nav-pill {
+    flex-shrink: 0;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .nav-pill:hover, .nav-pill:focus-visible { background: #2a2a31; outline: none; }
+  .nav-pill.transport { border-color: rgba(56,189,248,0.4); }
+  .nav-pill.health    { border-color: rgba(132,204,22,0.4); }
+  .nav-pill.night     { border-color: rgba(192,132,252,0.4); }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.25rem;
+  }
+
+  section { margin-top: 2.25rem; }
+
+  section > h2 {
+    font-size: 1.4rem;
+    margin: 0 0 1rem;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.15rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .card h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+  }
+  .card p, .card ul { margin: 0; }
+  .card p + p { margin-top: 0.6rem; }
+
+  ul.clean {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.clean li {
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 0.6rem;
+  }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li .dot {
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    margin-top: 0.55rem;
+    background: var(--muted);
+    border-radius: 50%;
+  }
+
+  /* Runsheet */
+  .runsheet {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6rem 0.9rem;
+    font-size: 0.92rem;
+  }
+  .runsheet .time {
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .runsheet .row {
+    display: contents;
+  }
+  .runsheet .act strong { display: block; }
+  .runsheet .act small { color: var(--muted); }
+
+  .runsheet .row.key .time { color: var(--red); }
+  .runsheet .row.key .act strong { color: var(--text); }
+
+  /* Room cards */
+  .room {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .room-header {
+    padding: 1.15rem 1.2rem 1.1rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .room-header::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--room-color, var(--red));
+  }
+
+  .room-no {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--room-color);
+    font-weight: 800;
+  }
+  .room-header h2 {
+    margin: 0.2rem 0 0.35rem;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .room-loc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .room-core {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .room-core .label {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .room-core .question {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .room-body { padding: 0.2rem 1.2rem 1rem; }
+
+  details {
+    border-bottom: 1px solid var(--border);
+    padding: 0.9rem 0;
+  }
+  details:last-child { border-bottom: none; }
+  details summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after {
+    content: "+";
+    color: var(--room-color, var(--muted));
+    font-size: 1.3rem;
+    font-weight: 400;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+
+  details .content {
+    padding-top: 0.7rem;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+  details .content p { margin: 0 0 0.6rem; }
+  details .content ul {
+    padding-left: 1.1rem;
+    margin: 0.3rem 0;
+  }
+  details .content li { margin-bottom: 0.25rem; }
+
+  .prompt-box {
+    background: color-mix(in srgb, var(--room-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--room-color) 35%, transparent);
+    border-radius: 10px;
+    padding: 0.8rem 0.95rem;
+    margin: 0.5rem 0;
+  }
+  .prompt-box .ptag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--room-color);
+    font-weight: 800;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .prompt-box q {
+    font-style: italic;
+    font-size: 1rem;
+    quotes: "“" "”";
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .chip {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* Moves + tips cards */
+  .moves-grid {
+    display: grid;
+    gap: 0.6rem;
+  }
+  .move {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 0.75rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-style: italic;
+  }
+
+  .role-grid {
+    display: grid;
+    gap: 0.7rem;
+  }
+  .role {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+  }
+  .role strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+  .role span { color: var(--muted); font-size: 0.88rem; }
+
+  .capture {
+    background: linear-gradient(180deg, rgba(230,43,30,0.12), transparent);
+    border: 1px solid rgba(230,43,30,0.3);
+    border-radius: 14px;
+    padding: 1.1rem 1.15rem;
+  }
+  .capture h3 { color: var(--red); margin-top: 0; }
+  .capture ul { padding-left: 1.1rem; }
+  .capture li { margin-bottom: 0.4rem; }
+
+  .record {
+    margin-top: 1rem;
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(230,43,30,0.18), transparent 60%),
+      var(--surface);
+    border: 1px solid rgba(230,43,30,0.45);
+    border-radius: 14px;
+    padding: 1.15rem 1.2rem;
+    position: relative;
+  }
+  .record-head {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.5rem;
+  }
+  .record-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+  .rec-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 4px rgba(230,43,30,0.18);
+    animation: rec-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes rec-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(230,43,30,0.18); }
+    50%      { box-shadow: 0 0 0 7px rgba(230,43,30,0.08); }
+  }
+  .record ul { padding-left: 1.1rem; margin: 0.4rem 0 0; }
+  .record li { margin-bottom: 0.45rem; }
+  .record .record-note {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed var(--border);
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.5rem 1rem 1rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  footer .line {
+    height: 1px;
+    background: var(--border);
+    margin: 0 auto 1.25rem;
+    max-width: 120px;
+  }
+
+  /* Room color scoping */
+  .room.transport { --room-color: var(--transport); }
+  .room.health    { --room-color: var(--health); }
+  .room.night     { --room-color: var(--night); }
+
+  /* Tone on iPhone-ish widths */
+  @media (max-width: 420px) {
+    main { padding: 1rem; }
+    h1 { font-size: 1.5rem; }
+    .card { padding: 0.95rem 1rem; }
+    .room-header, .room-core, .room-body { padding-left: 1rem; padding-right: 1rem; }
+  }
+
+  /* Focus styles */
+  a:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Print: simple flat version */
+  @media print {
+    :root { --bg: #fff; --surface: #fff; --surface-2: #f5f5f5; --text: #111; --muted: #555; --border: #ddd; }
+    body { background: #fff; color: #111; padding: 0; }
+    nav.sticky-nav, footer { display: none; }
+    details { page-break-inside: avoid; }
+    details > summary::after { content: ""; }
+    details .content { display: block !important; }
+    details[open] .content, details .content { padding-top: 0.5rem; }
+    .room { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="tedx-tag">TEDxNewy · Salon 1</div>
+    <h1>Newcastle 2050<span class="what-if">What if?</span></h1>
+    <p class="subtitle">Team quick-reference guide. Keep this open on your phone during the event.</p>
+  </div>
+</header>
+
+<nav class="sticky-nav" aria-label="Section navigation">
+  <div class="nav-scroll">
+    <a class="nav-pill" href="#overview">Overview</a>
+    <a class="nav-pill" href="#runsheet">Runsheet</a>
+    <a class="nav-pill transport" href="#transport">🚲 Transport</a>
+    <a class="nav-pill health" href="#health">🌿 Health</a>
+    <a class="nav-pill night" href="#night">🪩 Night</a>
+    <a class="nav-pill" href="#moves">Moves</a>
+    <a class="nav-pill" href="#capture">Capture</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <h2>Overview</h2>
+  <div class="card">
+    <p>Three rooms, three questions, one future city. Participants rotate between rooms in 25-minute sessions, using a mix of digital prompts, hands-on design, and open listening and conversation to imagine Newcastle in 2050.</p>
+  </div>
+  <div class="card">
+    <h3>How each room works</h3>
+    <ul class="clean">
+      <li><span class="dot"></span><div><strong>Reflect</strong> — a screen prompt for quick digital input (Mentimeter via QR).</div></li>
+      <li><span class="dot"></span><div><strong>Build</strong> — table activities with maps, tokens, cards and stickers.</div></li>
+      <li><span class="dot"></span><div><strong>Dialogue</strong> — a provocative wall prompt with sticky notes and voting dots.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- RUNSHEET -->
+<section id="runsheet">
+  <h2>Runsheet (from 5pm)</h2>
+  <div class="card">
+    <div class="runsheet">
+      <div class="row"><div class="time">5:00 pm</div><div class="act"><strong>Volunteers + co-hosts arrive</strong><small>Welcome, mic checks, slide + timing confirmation.</small></div></div>
+      <div class="row key"><div class="time">5:15 pm</div><div class="act"><strong>Team briefing</strong><small>Full team: flow, roles, emergency, timekeeping, audience management.</small></div></div>
+      <div class="row"><div class="time">5:30 pm</div><div class="act"><strong>Catering arrives</strong><small>Set-up ready for event.</small></div></div>
+      <div class="row"><div class="time">5:45 pm</div><div class="act"><strong>Final venue reset</strong><small>Tech, lights, stage, doors.</small></div></div>
+      <div class="row key"><div class="time">6:00 pm</div><div class="act"><strong>Doors open</strong><small>Check-in, wristbands, networking, background music.</small></div></div>
+      <div class="row"><div class="time">6:30 pm</div><div class="act"><strong>Welcome &amp; intro</strong><small>Jake + Will · VC UON.</small></div></div>
+      <div class="row"><div class="time">6:35 pm</div><div class="act"><strong>Format overview</strong><small>Adventures explains the evening.</small></div></div>
+      <div class="row"><div class="time">6:40 pm</div><div class="act"><strong>Up to breakout rooms</strong><small>Volunteers guide guests by wristband via elevators.</small></div></div>
+      <div class="row key"><div class="time">6:45 pm</div><div class="act"><strong>Session 1</strong><small>Q205 Transport · Q210 Health · QG01 Night.</small></div></div>
+      <div class="row"><div class="time">7:10 pm</div><div class="act"><strong>Break 1</strong><small>Capture data, photos, reset rooms.</small></div></div>
+      <div class="row key"><div class="time">7:15 pm</div><div class="act"><strong>Session 2</strong><small>Rotate groups.</small></div></div>
+      <div class="row"><div class="time">7:40 pm</div><div class="act"><strong>Break 2</strong><small>Capture + reset.</small></div></div>
+      <div class="row key"><div class="time">7:45 pm</div><div class="act"><strong>Session 3</strong><small>Final rotation.</small></div></div>
+      <div class="row"><div class="time">8:10 pm</div><div class="act"><strong>Closing remarks</strong><small>Everyone back downstairs. Jake + Will + Adventures.</small></div></div>
+      <div class="row"><div class="time">8:20 pm</div><div class="act"><strong>Networking</strong></div></div>
+      <div class="row"><div class="time">9:30 pm</div><div class="act"><strong>Hard close</strong><small>Pack-down.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORT ROOM -->
+<section id="transport">
+  <h2>The three rooms</h2>
+
+  <div class="room transport">
+    <div class="room-header">
+      <div class="room-no">Room 1 · 🚲🚃</div>
+      <h2>Transport &amp; Mobility</h2>
+      <div class="room-loc">Q205</div>
+    </div>
+    <div class="room-core">
+      <span class="label">Core question</span>
+      <p class="question">How will we move through, in and out of Newcastle in 2050?</p>
+    </div>
+    <div class="room-body">
+
+      <details open>
+        <summary>Focus</summary>
+        <div class="content">
+          <p>Encourage thinking at both scales — everyday usability <em>and</em> big-picture infrastructure. Push on accessibility, reduced car dependence, regional links, tourism, and how transport shapes the feel of city life.</p>
+          <p><strong>Framing points to drop in:</strong></p>
+          <ul>
+            <li>What transport changes would most improve daily life for residents?</li>
+            <li>How could the CBD connect to the wider region, airport, and growth areas?</li>
+            <li>What would make Newcastle feel innovative, accessible, well-connected by 2050?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Build · the tables</summary>
+        <div class="content">
+          <p><strong>Table Map #1 — Newcastle CBD.</strong></p>
+          <p><strong>Table Map #2 — NSW Regional.</strong></p>
+          <p>Participants place 3D transport tokens on the maps to show where future infrastructure could develop. Pins and string for routes. Sticky notes / comment cards for short ideas.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Reflect · screen prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Screen · Mentimeter</span>
+            <q>What would make Newcastle a world-class transport city?</q>
+          </div>
+          <p>20-minute timer per rotation. QR code on screen links to live input.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue · wall prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Wall</span>
+            <q>What if Newcastle's CBD had no roads?</q>
+          </div>
+          <p>Whiteboard markers / sticky notes + green &amp; yellow voting dots for responses.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue card prompts</summary>
+        <div class="content">
+          <ul>
+            <li>What do you see as the advantages and disadvantages?</li>
+            <li>Who do you see as benefitting most?</li>
+            <li>Who needs to be in this conversation?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Data capture</summary>
+        <div class="content">
+          <ul>
+            <li><strong>Screen:</strong> Mentimeter text input.</li>
+            <li><strong>Table maps:</strong> photos of 3D token placements, stickers and notes.</li>
+            <li><strong>Wall prompt:</strong> sticky note / whiteboard responses with green &amp; yellow voting dots.</li>
+            <li><strong>Conversation:</strong> optional audio recording (phone voice notes) for transcription.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- HEALTH ROOM -->
+  <div class="room health" id="health">
+    <div class="room-header">
+      <div class="room-no">Room 2 · 🌿🏃</div>
+      <h2>Health &amp; Wellbeing</h2>
+      <div class="room-loc">Q210</div>
+    </div>
+    <div class="room-core">
+      <span class="label">Core question</span>
+      <p class="question">How will we live well in the city in 2050?</p>
+    </div>
+    <div class="room-body">
+
+      <details open>
+        <summary>Focus</summary>
+        <div class="content">
+          <p>Push thinking beyond healthcare toward the daily environments that shape wellbeing. Who does the city currently support well? Where's the friction? What investments would make Newcastle healthier <em>and</em> more inclusive?</p>
+          <p><strong>Framing points to drop in:</strong></p>
+          <ul>
+            <li>Health is shaped by daily environment as much as healthcare systems.</li>
+            <li>Access to nature improves mental health and longevity.</li>
+            <li>Walkable cities reduce chronic disease.</li>
+            <li>Social connection is a major predictor of wellbeing.</li>
+            <li>Urban isolation and sedentary lifestyles are growing risks.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Build · the tables</summary>
+        <div class="content">
+          <p><strong>Table Map #1 — Newcastle Area.</strong></p>
+          <ul>
+            <li>Mark places that support wellbeing</li>
+            <li>Draw routes (walks, daily movement)</li>
+            <li>Sketch a "healthy day in Newcastle"</li>
+          </ul>
+          <p><strong>Planning Board #2 — Community: what makes a healthy community?</strong></p>
+          <ul>
+            <li>Identify areas of culture / community</li>
+            <li>Discuss who is missing or underserved</li>
+          </ul>
+          <p><strong>Tokens (limited number, for voting priorities):</strong></p>
+          <div class="chip-row">
+            <span class="chip">Green Space</span>
+            <span class="chip">Cultural Space</span>
+            <span class="chip">Community Hubs</span>
+            <span class="chip">Exercise Space</span>
+            <span class="chip">Youth Spaces</span>
+            <span class="chip">Accessibility</span>
+          </div>
+          <p style="margin-top: 0.7rem;"><em>Participants can also add their own responses onto blank cards / sticky notes and vote on those too — encourage this.</em></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Reflect · screen prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Screen · Mentimeter</span>
+            <q>What questions do we need to ask to live well in Newcastle in 2050?</q>
+          </div>
+          <p>20-minute timer per rotation. QR code on screen links to live input.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue · wall prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Wall</span>
+            <q>How much of our wellbeing and health is our own personal responsibility?</q>
+          </div>
+          <p>Whiteboard markers / sticky notes + green &amp; yellow voting dots for responses.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue card prompts</summary>
+        <div class="content">
+          <ul>
+            <li>What do you think "designed first for wellbeing" means?</li>
+            <li>If wellbeing came first, what is one everyday thing that would need to change?</li>
+            <li>How might a "wellbeing-first" city change how a typical day unfolds for someone?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Data capture</summary>
+        <div class="content">
+          <ul>
+            <li><strong>Screen:</strong> Mentimeter text input.</li>
+            <li><strong>Table map:</strong> photos of stickers and notes on the map.</li>
+            <li><strong>Planning board:</strong> photos of voting tokens and notes.</li>
+            <li><strong>Wall prompt:</strong> sticky note / whiteboard responses with green &amp; yellow voting dots.</li>
+            <li><strong>Conversation:</strong> optional audio recording (phone voice notes) for transcription.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+  <!-- NIGHT ROOM -->
+  <div class="room night" id="night">
+    <div class="room-header">
+      <div class="room-no">Room 3 · 🪩🎸</div>
+      <h2>Night-Time Culture &amp; Economy</h2>
+      <div class="room-loc">QG01</div>
+    </div>
+    <div class="room-core">
+      <span class="label">Core question</span>
+      <p class="question">How will we experience the city after dark in 2050?</p>
+    </div>
+    <div class="room-body">
+
+      <details open>
+        <summary>Focus</summary>
+        <div class="content">
+          <p>Widen the frame beyond bars and restaurants — live music, arts, festivals, transport, safety, accessibility, late-night activity, and <em>who</em> the city is designed for after dark.</p>
+          <p><strong>Framing points to drop in:</strong></p>
+          <ul>
+            <li>Newcastle's night-time culture has a rich, complex history.</li>
+            <li>The city is actively trying to rebuild and diversify its night economy.</li>
+            <li>Night culture = live music, theatre, food, festivals, public life, transport, creative experiences.</li>
+            <li>A great night city works for many kinds of people, not just one.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Build · the tables</summary>
+        <div class="content">
+          <p><strong>Table Map #1 — Newcastle CBD.</strong></p>
+          <ul>
+            <li>Use persona cards: where do these people go, what do they do?</li>
+            <li>Use stickers / sticky notes to imagine the night culture and economy in 2050</li>
+          </ul>
+          <p><strong>Planning Board #2 — Night Program Board: what should exist at night in Newcastle?</strong></p>
+          <ul>
+            <li>Night swimming, food precincts, silent spaces…</li>
+            <li>Draw up your own program / vision for night culture</li>
+          </ul>
+          <p><strong>Tokens (limited number, for voting priorities):</strong></p>
+          <div class="chip-row">
+            <span class="chip">Live Music</span>
+            <span class="chip">Night Markets</span>
+            <span class="chip">All-Ages</span>
+            <span class="chip">Safe Transport</span>
+            <span class="chip">Public Events</span>
+            <span class="chip">Creative Spaces</span>
+          </div>
+          <p style="margin-top: 0.7rem;"><em>Participants can also add their own responses onto blank cards / sticky notes and vote on those too — encourage this.</em></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Reflect · screen prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Screen · Mentimeter</span>
+            <q>What does Newcastle look like after dark in 2050?</q>
+          </div>
+          <p>20-minute timer per rotation. QR code on screen links to live input.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue · wall prompt</summary>
+        <div class="content">
+          <div class="prompt-box">
+            <span class="ptag">Wall</span>
+            <q>What if Newcastle after dark was treated as shared public space, not just an entertainment economy?</q>
+          </div>
+          <p>Whiteboard markers / sticky notes + green &amp; yellow voting dots for responses.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Dialogue card prompts</summary>
+        <div class="content">
+          <ul>
+            <li>What night-time experiences matter to you that don't involve spending money?</li>
+            <li>How does moving through the city at night shape your experience?</li>
+            <li>What would make Newcastle feel alive after dark in 2050?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Data capture</summary>
+        <div class="content">
+          <ul>
+            <li><strong>Screen:</strong> Mentimeter text input.</li>
+            <li><strong>Table map:</strong> photos of persona-experiences and stickers.</li>
+            <li><strong>Planning board:</strong> photos of voting tokens, notes and programs.</li>
+            <li><strong>Wall prompt:</strong> sticky note / whiteboard responses with green &amp; yellow voting dots.</li>
+            <li><strong>Conversation:</strong> optional audio recording (phone voice notes) for transcription.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONVERSATIONAL MOVES -->
+<section id="moves">
+  <h2>Conversational moves</h2>
+  <div class="card">
+    <p style="margin-bottom: 0.85rem; color: var(--muted);">Use these when a discussion stalls, sharpens, or needs one more turn. They work in any room.</p>
+    <div class="moves-grid">
+      <div class="move">Can you say a bit more about what you mean by…?</div>
+      <div class="move">Something you said makes me think about…</div>
+      <div class="move">What I'm hearing you say is…</div>
+      <div class="move">What makes that important to you?</div>
+      <div class="move">Who benefits — and who might be left out?</div>
+      <div class="move">What would need to be true for that to work?</div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA CAPTURE -->
+<section id="capture">
+  <h2>Capture before the break</h2>
+  <div class="capture">
+    <h3>After each session — 2 minutes</h3>
+    <ul>
+      <li><strong>Photograph the table maps</strong> — token placements, stickers, notes, routes.</li>
+      <li><strong>Photograph the planning board</strong> — voting tokens, written ideas, any participant-added priorities.</li>
+      <li><strong>Photograph the wall prompt</strong> with all sticky-note responses and green / yellow voting dots.</li>
+      <li><strong>Save or export the Mentimeter screen</strong> before resetting for the next group.</li>
+      <li><strong>Label the photos</strong> with room + session number (e.g. <em>Health-S2</em>) so we can sort them later.</li>
+    </ul>
+    <p style="margin-top: 0.6rem; color: var(--muted); font-size: 0.88rem;">Then reset the room for the next group: clear wall notes (once photographed), re-bowl the tokens, fresh sticky notes, blank cards ready for new contributions.</p>
+  </div>
+
+  <div class="record">
+    <div class="record-head">
+      <span class="rec-dot" aria-hidden="true"></span>
+      <h3>Record participant conversations</h3>
+    </div>
+    <p>Great conversations are happening in every room — capturing them is one of the most valuable things we can do. <strong>Rode microphones will be available</strong>; grab one and use it.</p>
+    <ul>
+      <li><strong>Ask first.</strong> "Happy for me to record a couple of minutes of this?" — most people will say yes.</li>
+      <li><strong>Keep it short.</strong> 3–5 minutes is plenty. One clear thought beats ten minutes of meandering.</li>
+      <li><strong>Follow the heat.</strong> When a table lights up — a story, a disagreement, a vivid idea — that's the moment to record.</li>
+      <li><strong>Prompt if needed:</strong> <em>"Say a bit more about that."</em> · <em>"What would need to be true for that?"</em> · <em>"Who would that be for?"</em></li>
+      <li><strong>Back up audio</strong> to your phone / cloud at each break. Label file as <em>Room-Session-ShortTopic</em>.</li>
+    </ul>
+    <p class="record-note">If Rode mics are in use, a phone voice memo is a perfectly good backup. Prioritise getting the conversation recorded over getting the perfect recording.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="line"></div>
+  TEDxNewy Salon 1 · <em>Newcastle 2050: What If?</em><br>
+  Team reference · keep on your phone throughout the event.
+</footer>
+
+<script>
+  // Smooth-scroll offset for sticky nav
+  document.querySelectorAll('.nav-pill').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (!id || !id.startsWith('#')) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      const navHeight = document.querySelector('.sticky-nav').offsetHeight;
+      const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+      history.replaceState(null, '', id);
+    });
+  });
+</script>
+
+</body>
+</html>
